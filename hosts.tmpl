@@ -1,0 +1,25 @@
+{{ $proxyContainer := whereLabelExists $ "app.proxy.ip" | first }}
+
+{{ define "getIp" }}
+   {{- if .Container -}}
+        {{- $network := .Container.Networks | first -}}
+        {{- if $network -}}{{- $network.IP -}}{{- end -}}
+   {{- end -}}
+{{ end }}
+
+{{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
+    {{- range $container := $containers }}
+        {{- $target := index $container.Labels "hosts.updater.target" }}
+        {{- if $target }}
+            {{- if hasPrefix "label:" $target }}
+                {{- $targetLabel := trimPrefix "label:" $target }}
+                {{- $targetContainer := whereLabelExists $ $targetLabel | first }}
+                {{- template "getIp" (dict "Container" $targetContainer) }} {{ $host }}
+            {{- else }}
+                {{- $target }} {{ $host }}
+            {{- end }}
+        {{- else }}
+            {{- template "getIp" (dict "Container" $container) }} {{ $host }}
+        {{- end }}
+    {{- end }}
+{{ end }}
