@@ -45,7 +45,7 @@ Now you have a working updater and you can run your application:
         environment:
           VIRTUAL_HOST: my.first.domain.local,my.second.domain.local
           
-The environment variable VIRTUAL_HOST can contains multiple domains separated by commas
+The environment variable VIRTUAL_HOST can contain multiple domains separated by commas
 
 Let's see how the application's compose file looks like when you forward the ports from your host machine to the container and want to use local IP addresses.
 
