@@ -61,7 +61,7 @@ Let's see how the application's compose file looks like when you forward the por
         labels:
           hosts.updater.target: 127.0.0.1
           
-When you have a reverse proxy and you need the hosts to point the ip address of the proxy container, you need to add a label to the proxy container and refer this label from in your application's compose file:
+When you have a reverse proxy and you need the hosts to point the ip address of the proxy container, you need to add a label to the proxy container and refer this label in your application's compose file:
 
     version: "2"
     
