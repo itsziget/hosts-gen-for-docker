@@ -3,7 +3,7 @@
 When you run web servers or other services inside Docker containers on your local machine, you may need domains to access them.
 In that case you probably forward ports from the host machine to the containers or use a reverse proxy to made it easier, then edit /etc/hosts manually, unless you forget it. 
 
-This image based on the great [jwilder/docker-gen](https://hub.docker.com/r/jwilder/docker-gen). Using it you can generate a list of IP addresses and host names, which can be used to update your local machine's hosts file by [rimelek/hosts-updater](https://hub.docker.com/r/rimelek/hosts-updater/) 
+This image based on the great [jwilder/docker-gen](https://hub.docker.com/r/jwilder/docker-gen). Using it you can generate a list of IP addresses and host names, which can be used to update your local machine's hosts file by [itsziget/hosts-updater](https://hub.docker.com/r/itsziget/hosts-updater/) 
 
 You can decide per container whether the hosts belong to a specific container (reverse proxy for example) or the container where the hosts are defined.
 
@@ -19,14 +19,14 @@ Here is an example Docker Compose file without reverse proxy:
     
     services:
       hosts-updater:
-        image: rimelek/hosts-updater
+        image: itsziget/hosts-updater
         container_name: hosts-updater
         volumes:
           - /etc/hosts:/hosts/orig
           - /etc/hosts.docker.tpl:/hosts/tpl:ro
           - hosts:/hosts
       hosts-gen:
-        image: rimelek/hosts-gen
+        image: itsziget/hosts-gen
         container_name: hosts-gen
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
